@@ -1,4 +1,8 @@
 package com.example.familytodojetpackcompose.userinterface.builders
 
-class ScreenBuilder {
+import androidx.compose.runtime.Composable
+
+interface ScreenBuilder {
+    @Composable
+    fun buildScreen()
 }

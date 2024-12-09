@@ -27,11 +27,11 @@ object ButtonFactory {
     fun createButton(
         type: ButtonType,
         text: String = "",
-        onClick: () -> Unit,
+        onClick: () -> Unit, // Змінено на звичайну функцію
         icon: @Composable (() -> Unit)? = null, // Для кнопок з іконками
         backgroundColor: Color = Color.Gray, // Колір фону для налаштовуваної кнопки
         textColor: Color = Color.Black, // Колір тексту для налаштовуваної кнопки
-        shape: Shape = RoundedCornerShape(25.dp),// Форма кнопки
+        shape: Shape = RoundedCornerShape(25.dp), // Форма кнопки
         fontSize: Int = 32, // Розмір шрифту для налаштовуваної кнопки
         fontFamily: FontFamily = FontFamily(Font(R.font.roboto_bold)), // Сімейство шрифтів
         modifier: Modifier = Modifier // Загальний модифікатор
@@ -41,7 +41,7 @@ object ButtonFactory {
                 { CustomButton(text, onClick, backgroundColor, textColor, fontSize, fontFamily, modifier, shape) }
             }
             ButtonType.IconButton -> {
-                { IconButton(onClick, icon!! , modifier) }
+                { IconButton(onClick, icon!!, modifier) }
             }
         }
     }
@@ -50,17 +50,20 @@ object ButtonFactory {
 @Composable
 private fun CustomButton(
     text: String,
-    onClick: () -> Unit,
+    onClick: () -> Unit, // Тут тип має залишатись без @Composable
     backgroundColor: Color,
     textColor: Color,
     fontSize: Int,
     fontFamily: FontFamily,
-
     modifier: Modifier = Modifier,
     shape: Shape
 ) {
-    Button(onClick = onClick, colors = ButtonDefaults.buttonColors(backgroundColor), shape = shape, modifier = modifier
-            .padding(24.dp)) {
+    Button(
+        onClick = onClick, // Використовується некомпонована функція
+        colors = ButtonDefaults.buttonColors(backgroundColor),
+        shape = shape,
+        modifier = modifier.padding(24.dp)
+    ) {
         Text(
             text = text,
             color = textColor,
@@ -74,15 +77,16 @@ private fun CustomButton(
 
 @Composable
 private fun IconButton(
-    onClick: () -> Unit,
+    onClick: () -> Unit, // Тут також тип залишається без @Composable
     icon: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {
-        androidx.compose.material3.IconButton(
-            onClick = onClick,
-            modifier = modifier
-        ) {
-            icon()
-        }
+    androidx.compose.material3.IconButton(
+        onClick = onClick, // Використовується некомпонована функція
+        modifier = modifier
+    ) {
+        icon()
     }
+}
+
 
