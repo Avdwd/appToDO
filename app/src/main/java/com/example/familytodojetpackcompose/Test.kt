@@ -4,50 +4,77 @@ package com.example.familytodojetpackcompose
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
-
+import com.example.familytodojetpackcompose.userinterface.components.InputFieldFactory
 import com.example.familytodojetpackcompose.userinterface.components.InputFieldType
-import com.example.familytodojetpackcompose.userinterface.components.TaskFactory
-import com.example.familytodojetpackcompose.userinterface.components.TaskType
 
 @Preview
 @Composable
 fun PreviewInputFields() {
-    omeScreen()
-}
+    Column {
+        // Стандартне поле вводу
+        InputFieldFactory.createInputField(
+            type = InputFieldType.Standard,
+            value = TextFieldValue(""),
+            onValueChange = {},
+            placeholder = "Standard Input",
+            backgroundColor = Color.LightGray,
+            textColor = Color.Black,
+            fontSize = 16,
+            modifier = Modifier.padding(8.dp)
+        )()
 
-@Composable
-fun omeScreen() {
-    val tasks = listOf(
-        TaskFactory.createTask(
-            type = TaskType.TaskWithOwner,
-            date = "2024-12-10",
-            description = "Plan family meeting",
-            isCompleted = false,
-            ownerIconId = R.drawable.account_circle, // Вкажіть ID вашої іконки
-            ownerColor = Color(0xFFA7C383), // Колір власника
-            taskColor = Color(0xFFDF6F5B) // Колір завдання
-        ),
-        TaskFactory.createTask(
-            type = TaskType.TaskWithoutOwner,
-            date = "2024-12-11",
-            description = "Grocery shopping",
-            isCompleted = true,
-            taskColor = Color(0xFFFFD075)
-        )
-    )
+        // Поле вводу для пароля
+        InputFieldFactory.createInputField(
+            type = InputFieldType.Password,
+            value = TextFieldValue(""),
+            onValueChange = {},
+            placeholder = "Password",
+            backgroundColor = Color.Gray,
+            textColor = Color.White,
+            fontSize = 16,
+            modifier = Modifier.padding(8.dp)
+        )()
 
-    // Використання LazyColumn для відображення завдань
-    LazyColumn {
-        items(tasks) { taskComponent ->
-            taskComponent()
-        }
+        // Поле вводу для електронної пошти
+        InputFieldFactory.createInputField(
+            type = InputFieldType.Email,
+            value = TextFieldValue(""),
+            onValueChange = {},
+            placeholder = "Email",
+            backgroundColor = Color.LightGray,
+            textColor = Color.Black,
+            fontSize = 16,
+            modifier = Modifier.padding(8.dp)
+        )()
+
+        // Поле вводу для чисел
+        InputFieldFactory.createInputField(
+            type = InputFieldType.Number,
+            value = TextFieldValue(""),
+            onValueChange = {},
+            placeholder = "Number",
+            backgroundColor = Color.LightGray,
+            textColor = Color.Black,
+            fontSize = 16,
+            modifier = Modifier.padding(8.dp)
+        )()
+
+        // Поле вводу для дати
+        InputFieldFactory.createInputField(
+            type = InputFieldType.Date,
+            value = TextFieldValue(""),
+            onValueChange = {},
+            placeholder = "dd/mm/ee",
+            backgroundColor = Color.LightGray,
+            textColor = Color.Black,
+            fontSize = 16,
+            modifier = Modifier.padding(8.dp)
+        )()
     }
 }
