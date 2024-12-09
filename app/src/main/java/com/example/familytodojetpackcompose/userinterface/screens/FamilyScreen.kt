@@ -1,20 +1,21 @@
 package com.example.familytodojetpackcompose.userinterface.screens
 
-import android.graphics.drawable.PaintDrawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Text
@@ -41,13 +42,13 @@ import com.example.familytodojetpackcompose.userinterface.components.ButtonType
 class FamilyScreen:ScreenBuilder {
     @Composable
     override fun buildScreen() {
-        TODO("Not yet implemented")
+        BuildFamilyScreen()
     }
 }
 
 @Composable
 private fun BuildFamilyScreen() {
-    val familyExist  = remember { mutableStateOf(false) }
+    val familyExist  = remember { mutableStateOf(true) }// зміна екрану в залежності від того чи створена сім'я
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -63,7 +64,6 @@ private fun BuildFamilyScreen() {
             }else{
                 NoFamilyFragment()
             }
-            NoFamilyFragment()
         }
         Box(
             modifier = Modifier
@@ -176,7 +176,9 @@ fun NoFamilyFragment() {
                         textColor = Color(0xFFFFF2D2),
                         fontSize = 20,
                         fontFamily = FontFamily(Font(R.font.roboto_bold)),
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.4f),
                         shape = RoundedCornerShape(20.dp)
 
                     )()
@@ -185,11 +187,13 @@ fun NoFamilyFragment() {
                         text = "Create family",
                         type = ButtonType.CustomButton,
                         onClick = { CreateFamily() },
-                        backgroundColor = Color(0xFFA7C383),
+                        backgroundColor = Color(0xFFFFD075),
                         textColor = Color(0xFFFFF2D2),
                         fontSize = 20,
                         fontFamily = FontFamily(Font(R.font.roboto_bold)),
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.67f),
                         shape = RoundedCornerShape(20.dp),
 
                     )()
@@ -217,6 +221,68 @@ fun NoFamilyFragment() {
 }
 
 
+@Composable
+fun HasFamilyFragment() {
+    // Приклад списку членів сім'ї
+    val familyMembers = listOf("John Doe", "Jane Smith", "Emily Brown", "Michael Green")
+
+
+    Column( modifier = Modifier.padding(30.dp).fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        Box(modifier = Modifier.height(60.dp)
+            .fillMaxWidth()
+            .background(Color(0xFFA7C383), shape = RoundedCornerShape(20.dp))
+            , contentAlignment = Alignment.Center){
+            Text(text = "Family member list",
+                color = Color(0xFFFFF2D2),
+                fontSize = 30.sp,
+                fontFamily = FontFamily(Font(R.font.roboto_bold)),
+                modifier = Modifier.padding(10.dp))
+        }
+        Spacer(modifier = Modifier.height(20.dp)) // Відступ між заголовком і списком
+
+        // Список членів сім'ї
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(30.dp)
+        ) {
+            items(familyMembers) { member ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color(0xFFFED585), shape = RoundedCornerShape(15.dp))
+                        .padding(16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = member,
+                        color = Color(0xFFFFF2D2),
+                        fontSize = 20.sp,
+                        fontFamily = FontFamily(Font(R.font.roboto_bold))
+                    )
+                }
+            }
+        }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 private fun CreateFamily() {
     @Composable
@@ -231,18 +297,9 @@ private fun JoinFamily() {
 }
 
 
-@Composable
-fun HasFamilyFragment() {
 
-}
 
-@Composable
-fun JoinFamilyFrame(){}
 
-@Composable
-fun FamilyFrame(){
-
-}
 
 
 

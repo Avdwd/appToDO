@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
-import com.example.familytodojetpackcompose.userinterface.components.InputFieldFactory
+
 import com.example.familytodojetpackcompose.userinterface.components.InputFieldType
 import com.example.familytodojetpackcompose.userinterface.components.TaskFactory
 import com.example.familytodojetpackcompose.userinterface.components.TaskType

@@ -7,7 +7,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,7 +15,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -32,14 +30,14 @@ object InputFieldFactory {
     @Composable
     fun createInputField(
         type: InputFieldType,
-        value: TextFieldValue,
+        value: TextFieldValue, // Зміна типу з Any на TextFieldValue
         onValueChange: (TextFieldValue) -> Unit,
         placeholder: String = "",
-        backgroundColor: Color = Color.Transparent, // Колір фону
-        textColor: Color = Color.Black, // Колір тексту
-        fontSize: Int = 20, // Розмір шрифту
-        fontFamily: FontFamily = FontFamily.SansSerif, // Сімейство шрифтів
-        modifier: Modifier = Modifier // Загальний модифікатор
+        backgroundColor: Color = Color.Transparent,
+        textColor: Color = Color.Black,
+        fontSize: Int = 20,
+        fontFamily: FontFamily = FontFamily.SansSerif,
+        modifier: Modifier = Modifier
     ): @Composable () -> Unit {
         return when (type) {
             InputFieldType.Standard -> {
