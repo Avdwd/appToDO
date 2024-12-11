@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -24,21 +26,25 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.familytodojetpackcompose.R
-import com.example.familytodojetpackcompose.userinterface.builders.ScreenBuilder
+
 import com.example.familytodojetpackcompose.userinterface.components.ButtonFactory
 import com.example.familytodojetpackcompose.userinterface.components.ButtonType
 import com.example.familytodojetpackcompose.userinterface.components.InputFieldFactory
 import com.example.familytodojetpackcompose.userinterface.components.InputFieldType
+import com.example.familytodojetpackcompose.userinterface.viewmodel.TaskViewModel
 
-class TaskCreation:ScreenBuilder {
-    @Composable
-    override fun buildScreen() {
-        TaskCreationBuilder()
-    }
-}
+
 @Composable
-private fun TaskCreationBuilder(){
+fun TaskCreationBuilder(navController: NavHostController,taskViewModel: TaskViewModel){
+
+    val taskName = remember { mutableStateOf(TextFieldValue()) }
+    val taskDescription = remember { mutableStateOf(TextFieldValue()) }
+    val dueDate = remember { mutableStateOf(TextFieldValue()) }
+
+    val taskAddedStatus by taskViewModel.taskAddedStatus.observeAsState(false)
+
 Column(
     modifier = Modifier
         .fillMaxSize()
@@ -58,10 +64,7 @@ Column(
                     shape = RoundedCornerShape(20.dp)
                 ))
             {
-                // Приклад полів вводу за допомогою InputFieldFactory
-                val taskName = remember { mutableStateOf(TextFieldValue()) }
-                val taskDescription = remember { mutableStateOf(TextFieldValue()) }
-                val dueDate = remember { mutableStateOf(TextFieldValue()) }
+
 
                 //додати поля для ввода для цього створити column(для полів ввода з фабрики)
                 // and row(кнопки з фабрики баттонів)
@@ -122,8 +125,15 @@ Column(
                         ButtonFactory.createButton(
                             type = ButtonType.CustomButton,
                             text = "CONFIRM",
-                            onClick = {
-                                // Логіка обробки натискання кнопки "Зберегти"
+                            onClick = { // Додавання завдання через ViewModel
+                                taskViewModel.addTask(
+                                    name = taskName.value.text,
+                                    description = taskDescription.value.text,
+                                    dueDate = dueDate.value.text
+                                )
+                                if (taskAddedStatus) {
+                                    navController.navigate("profileScreen")
+                                }
                             },
                             backgroundColor = Color(0xFFA7C383), // Зелений колір
                             textColor = Color.White,
@@ -136,7 +146,7 @@ Column(
                         ButtonFactory.createButton(
                             type = ButtonType.CustomButton,
                             text = "CANCEL",
-                            onClick = {
+                            onClick = { navController.navigate("profileScreen")
                                 // Логіка обробки натискання кнопки "Скасувати"
                             },
                             backgroundColor = Color(0xFFE57373), // Червоний колір
@@ -159,15 +169,15 @@ Column(
                 )
                 .fillMaxWidth()
         ) {
-            BottomAppBarContentProfile()
+            BottomAppBarContentProfile(navController)
         }
 
     }
 }
 
-
-@Preview(showSystemUi = true)
-@Composable
-fun showFragmentTaskCreation(){
-    TaskCreationBuilder()
-}
+//
+//@Preview(showSystemUi = true)
+//@Composable
+//fun showFragmentTaskCreation(){
+//    TaskCreationBuilder()
+//}

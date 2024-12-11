@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "729913520161",
+    "project_id": "familytodo-7e728",
+    "storage_bucket": "familytodo-7e728.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729913520161:android:a46df5d8d55c3a6504b360",
+        "android_client_info": {
+          "package_name": "com.example.familytodojetpackcompose"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWV1mOLRYNhmkY1InXoPKWekNwPl7oZW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
